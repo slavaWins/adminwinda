@@ -113,11 +113,13 @@
             margin-bottom: 10px;
             padding-left: 13px;
         }
+
         .sidebarFloatind a {
             display: block;
             padding: 6.5px 26px;
             color: #000;
         }
+
         .sidebarFloatind a:hover {
             background: #c5c5c545;
             transition: 0.081s;
@@ -184,25 +186,35 @@
             }
         }
 
-        .btn{
+        .btn {
             border-radius: 0px;
             box-shadow: none !important;
             font-size: 13px;
             letter-spacing: -0.01em;
-            text-transform: none ;
+            text-transform: none;
         }
-        .btn-dark{
+
+        .btn-dark {
             background: #EAE9E9;
             color: #000;
         }
-        .btn-primary{
+
+        .btn-primary {
             background: #044AFF;
             color: #fff;
         }
-        .table-bordered>:not(caption)>*>*{
+
+        .table-bordered > :not(caption) > * > * {
             border: 1px solid #000;
         }
 
+        .card-header, .card-body{
+            border-color: #000;
+            border-width: 1px;
+        }
+        .card{
+            border-radius: 3px;
+        }
     </style>
 </head>
 <body>
