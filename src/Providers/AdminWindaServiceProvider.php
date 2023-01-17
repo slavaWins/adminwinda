@@ -30,20 +30,16 @@ class AdminWindaServiceProvider extends ServiceProvider
             __DIR__.'/../resources/js' => public_path('js/adminwinda'),
         ], 'public');
 */
-        $this->publishes([
-            __DIR__.'/../../img' => public_path('img/adminwinda'),
-        ], 'public');
 
+/*
         $this->publishes([
             __DIR__.'/../database/migrations' =>  database_path('migrations'),
         ], 'public');
-
+  */
         $this->publishes([
-            __DIR__.'/../resources/views' =>  resource_path('views'),
+            __DIR__.'/copy/Controllers/AdminWinda' =>  app_path('Http/Controllers'),
         ], 'public');
 
-        $this->publishes([
-            __DIR__.'/../Actions' =>  app_path('Actions'),
-        ], 'public');
+
     }
 }
