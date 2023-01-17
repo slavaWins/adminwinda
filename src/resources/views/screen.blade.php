@@ -1,4 +1,4 @@
-@extends('admin.app')
+@extends('adminwinda::app')
 
 @section("sidebar")
     <span class="spanTitle" style="">Параметры</span>
@@ -20,7 +20,7 @@
         <div class="row justify-content-left  ">
 
 
-            @include('admin.sidebar')
+            @include('adminwinda::sidebar')
 
             <div class="col-md-8 mt-4">
                 @yield('content')

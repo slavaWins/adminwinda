@@ -15,7 +15,7 @@ composer require slavawins/adminwinda
 2) Опубликовать js файлы, вью и миграции необходимые для работы пакета.
 Вызывать команду:
    ```
-   php artisan vendor:publish --provider="AdminWinda\Providers\AdminWindaServiceProvider"
+   php artisan vendor:publish --provider="SlavaWins\AdminWinda\Providers\AdminWindaServiceProvider"
    ``` 
 
 

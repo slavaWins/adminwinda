@@ -1,9 +1,8 @@
 <?php
 
-    namespace App\Http\Controllers\AdminWinda;
+    namespace App\Http\Controllers;
 
     use App\Http\Controllers\Controller;
-    use App\Models\ResponseApi;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Validator;
 
