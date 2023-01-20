@@ -1,11 +1,11 @@
 <?php
 
 
-namespace AdminWinda\Library;
+namespace SlavaWins\AdminWinda\Library;
 
 
 use Illuminate\Support\Facades\Route;
-use AdminWinda\Http\Controllers\AdminWindaController;
+use SlavaWins\AdminWinda\Http\Controllers\UserAdminController;
 
 class AdminWindaRoute
 {
@@ -13,7 +13,8 @@ class AdminWindaRoute
     public static function routes()
     {
         Route::get('/admin', [\App\Http\Controllers\AdminWinda\AdminPageController::class, 'index'])->name('admin');
-      //  Route::get('/admin', [AdminWindaController::class, 'index'])->name('admin.index');
+        Route::get('/admin/users/show/{user}', [UserAdminController::class, 'show'])->name('admin.users.show');
+        Route::get('/admin/users/list', [UserAdminController::class, 'index'])->name('admin.users.list');
     }
 
 }

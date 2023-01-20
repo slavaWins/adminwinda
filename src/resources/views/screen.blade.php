@@ -22,7 +22,7 @@
 
             @include('adminwinda::sidebar')
 
-            <div class="col-md-8 mt-4">
+            <div class="col-md-8 mt-4 mainContent">
                 @yield('content')
             </div>
 
