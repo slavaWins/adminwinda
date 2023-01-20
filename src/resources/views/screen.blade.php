@@ -1,15 +1,7 @@
 @extends('adminwinda::app')
 
 @section("sidebar")
-    <span class="spanTitle" style="">Параметры</span>
 
-    <BR><BR>
-    <BR><BR>
-
-    @include("admin-extend.sidebar")
-
-
-    <BR><BR>
 @endsection
 
 @section('app-col')
