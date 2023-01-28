@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType("users-show") as $V)
+        @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType("user-show") as $V)
             @include($V)
         @endforeach
 

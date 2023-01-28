@@ -10,9 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="/css/mat-icons/css2.css"/>
 
 
     <link
@@ -21,7 +19,6 @@
     />
 
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
-    <script src="{{ asset('js/BaseClass.js') }}"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
@@ -90,37 +87,87 @@
     <style>
 
         body {
-            background: #F7F7FA;
+            background: #fff;
             font-size: 14px;
             font-family: 'Inter', sans-serif;
             font-weight: 400;
             color: #000;
             letter-spacing: -0.015em;
+
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 17px;
+            xletter-spacing: -0.005em;
+            color: rgba(0, 0, 0, 0.47);
+
         }
 
+
+        .sidebarFloatind icongg {
+            display: block;
+            float: left;
+            margin-right: 16px;
+            margin-top: -4px;
+        }
+
+        .aw-card b {
+            font-weight: 600;
+            font-size: 27.2991px;
+            line-height: 33px;
+            /* identical to box height */
+
+            letter-spacing: 0.005em;
+            display: block;
+            color: #24242E;
+            margin-top: 5px;
+        }
+
+        .aw-card {
+            padding: 30px 26px;
+            border: 1px solid #d9ddde;
+            border-radius: 9px;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 15px;
+            letter-spacing: 0.005em;
+            color: rgba(0, 0, 0, 0.69);
+        }
+
+        .aw-card .iconRound {
+            padding: 10px;
+            font-size: 22px;
+            width: fit-content;
+            background: #dddddd;
+            border-radius: 100%;
+            display: block;
+            margin-bottom: 15px;
+            color: #3b3b44;
+        }
+
+        .adminHeader {
+            color: rgba(0, 0, 0, 0.82);
+        }
+
+        .sidebarFloatind  > a, .spanTitle, .adminHeader {
+            padding: 12px 26px;
+            font-weight: 500;
+            font-size: 14px;
+            letter-spacing: -0.02em;
+        }
+
+        .sidebarFloatind > a, .spanTitle {
+            display: block;
+            line-height: 16px;
+            color: rgba(0, 0, 0, 0.46);
+        }
 
         .spanTitle {
-            font-style: normal;
-            color: #000;
-            font-style: normal;
-            font-weight: 400;
-            font-size: 19.7653px;
-            line-height: 24px;
+            color: rgba(0, 0, 0, 0.82);
+            margin-top: 14px;
+            font-size: 13px;
         }
 
-        .sidebarFloatind .spanTitle {
-            display: block;
-            margin-bottom: 10px;
-            padding-left: 13px;
-        }
-
-        .sidebarFloatind a {
-            display: block;
-            padding: 6.5px 26px;
-            color: #000;
-        }
-
-        .sidebarFloatind a:hover {
+        .sidebarFloatind > a:hover {
             background: #c5c5c545;
             transition: 0.081s;
         }
@@ -143,28 +190,25 @@
 
         h1, h2, h3, h4 {
 
+
             font-family: 'Inter';
             font-style: normal;
-            font-weight: 400;
-            line-height: 50px;
-            color: #000000;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 26px;
+            letter-spacing: -0.02em;
+            color: rgba(0, 0, 0, 0.8);
+
         }
 
         h1 {
-            font-size: 41.4032px;
+            font-size: 24px;
         }
 
         h2 {
-            font-size: 26px;
+            font-size: 18px;
         }
 
-        h3 {
-            font-style: normal;
-            font-weight: 400;
-            font-size: 17.7083px;
-            line-height: 21px;
-            letter-spacing: 0.015em;
-        }
 
 
         .textDotLimiter {
@@ -177,7 +221,7 @@
 
         .sidebarFloatind {
             margin-bottom: 25px;
-            background: #E6E6E6;
+            background: #F5F5F5;
         }
 
         @media (min-width: 1200px) {
@@ -208,11 +252,12 @@
             border: 1px solid #000;
         }
 
-        .card-header, .card-body{
+        .card-header, .card-body {
             border-color: #000;
             border-width: 1px;
         }
-        .card{
+
+        .card {
             border-radius: 3px;
         }
     </style>

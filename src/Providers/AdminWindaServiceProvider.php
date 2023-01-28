@@ -3,6 +3,8 @@
 namespace SlavaWins\AdminWinda\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use SlavaWins\AdminWinda\View\Components\AwCard;
+use SlavaWins\AdminWinda\View\Components\AwSidebtn;
 
 class AdminWindaServiceProvider extends ServiceProvider
 {
@@ -24,7 +26,21 @@ class AdminWindaServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->loadViewComponentsAs('', [
+            AwSidebtn::class,
+            AwCard::class
+        ]);
+
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'adminwinda');
+
+        $this->publishes([
+            __DIR__.'/../copy/icons' => public_path('css'),
+        ], 'public');
+
+        $this->publishes([
+            __DIR__.'/../copy/Views' => resource_path('views'),
+        ], 'public');
+
         /*
                 $this->publishes([
                     __DIR__.'/../resources/js' => public_path('js/adminwinda'),

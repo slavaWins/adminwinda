@@ -13,6 +13,9 @@ class ParsingAdminBlade
 
     public static function GetAdminExtendByType($bladeName)
     {
+        $bladeName = strtolower($bladeName);
+        $bladeName=basename($bladeName);
+
         $list = [];
         foreach (self::ScanAdminViewFoolder() as $K => $V) {
             $fname = $bladeName . '.blade.php';
