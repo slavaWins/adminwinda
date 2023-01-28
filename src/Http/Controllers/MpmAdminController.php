@@ -14,6 +14,73 @@ class MpmAdminController extends Controller
 {
 
 
+    public static function GeneratePieData($list)
+    {
+        $ar = [
+            'labels' => [],
+            'datasets' => [],
+        ];
+
+        $data = [];
+        foreach ($list as $K => $V) {
+            if($V['count']<=0)continue;
+            $ar['labels'][] = $V['name'];
+            $data[] = $V['count'];
+
+        }
+        $ar['datasets'][] = [
+            'label' => '#  шт',
+            'data' => $data
+        ];
+        return json_encode($ar);
+    }
+
+    public function analtitics($modelClass)
+    {
+
+        /** @var RepresentBase $represent */
+        $represent = RepresentBase::GetRepesentsClasses()[$modelClass] ?? null;
+        if (!$represent) return redirect()->back();
+        if (!$represent->analiticsDiagramBySelect) return redirect()->back();
+
+        /** @var MPModel $modelExample */
+        $modelExample = new $represent->modelClass();
+
+        $props = $modelExample->GetProperties();
+
+        $cln = new $represent->modelClass();
+        $q = $cln::select($represent->analiticsDiagramBySelect)->get();
+
+        $analiticDigram = [];
+
+        foreach ($represent->analiticsDiagramBySelect as $K) {
+            $analiticDigram[$K] = [];
+            $analiticDigram[$K]['name'] = $props[$K]->label;
+            foreach ($props[$K]->options as $oK => $oV) {
+                $analiticDigram[$K]['options'][$oK] = [
+                    'name' => $oV,
+                    'count' => 0,
+                ];
+            }
+        }
+
+
+        foreach ($q as $item) {
+
+
+            foreach ($represent->analiticsDiagramBySelect as $propKey) {
+                foreach ($props[$propKey]->options as $optionK => $optionName) {
+                    if ($item->$propKey == $optionK) {
+                        $analiticDigram[$propKey]['options'][$optionK]['count'] += 1;
+                    }
+                }
+            }
+        }
+
+        return view('adminwinda::mpm.analtitics', compact(['represent', 'modelExample', 'analiticDigram']));
+    }
+
+
     public function list($modelClass)
     {
         /** @var RepresentBase $represent */
@@ -29,12 +96,12 @@ class MpmAdminController extends Controller
         if (!empty($s)) {
             $first = true;
             foreach ($modelExample->GetProperties() as $K => $V) {
-                if($V->typeData<>'string' and $V->typeData<>'text')continue;
+                if ($V->typeData <> 'string' and $V->typeData <> 'text') continue;
 
-                if($first){
+                if ($first) {
                     $q = $represent->modelClass::where($K, 'LIKE', "%{$s}%");
-                    $first=false;
-                }else{
+                    $first = false;
+                } else {
                     $q = $q->orWhere($K, 'LIKE', "%{$s}%");
                 }
 

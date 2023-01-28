@@ -13,6 +13,9 @@ class  RepresentBase
     public $title = "Пользователи";
     public $modelClass = null;
 
+    /** @var array $analiticsDiagramBySelect Перечисли массивом ['xz','myType'] поля  $config->Select() и по ним будут созданы диаграммы аналитики   */
+    public $analiticsDiagramBySelect = 'auto';
+
 
     /** @var bool $image Выводить ли картинку в админке? Если да, то она будет выведена через  GetImagePreview */
     public $image = false;
@@ -40,6 +43,26 @@ class  RepresentBase
             $listClasses[basename($cln)] = $cl;
         }
         return $listClasses;
+    }
+
+    public function __construct()
+    {
+        if(class_exists($this->modelClass)){
+            if($this->analiticsDiagramBySelect=='auto'){
+
+               $this->analiticsDiagramBySelect=[];
+                /** @var MPModel $modelExample */
+                $modelExample = new $this->modelClass();
+                foreach ($modelExample->GetProperties() as $K=>$V){
+                    if($V->typeData=="select"){
+                        $this->analiticsDiagramBySelect[] = $K;
+                    }
+                }
+
+                if(empty($this->analiticsDiagramBySelect))$this->analiticsDiagramBySelect = null;
+            }
+        }
+
     }
 
 }
