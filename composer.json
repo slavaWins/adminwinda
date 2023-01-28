@@ -19,7 +19,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "AdminWinda\\Providers\\AdminWindaServiceProvider"
+                "SlavaWins\\AdminWinda\\Providers\\AdminWindaServiceProvider"
             ]
         }
     },
