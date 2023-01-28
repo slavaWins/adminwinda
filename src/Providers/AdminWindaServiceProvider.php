@@ -52,10 +52,13 @@ class AdminWindaServiceProvider extends ServiceProvider
                     __DIR__.'/../database/migrations' =>  database_path('migrations'),
                 ], 'public');
           */
-
+ 
+        if(!file_exists(app_path('Admin/Represents'))) {
+            mkdir(app_path('Admin/Represents'));
+        }
 
         $this->publishes([
-            __DIR__ . '/../copy/Controllers/AdminWinda' => app_path('Http/Controllers'),
+            __DIR__ . '/../copy/Controllers' => app_path('Http/Controllers'),
         ], 'public');
 
 

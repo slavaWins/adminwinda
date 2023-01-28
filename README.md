@@ -16,7 +16,9 @@ composer require slavawins/adminwinda
 Вызывать команду:
    ```
    php artisan vendor:publish --provider="SlavaWins\AdminWinda\Providers\AdminWindaServiceProvider"
+   php artisan vendor:publish --provider="SlavaWins\EasyAnalitics\Providers\EasyAnaliticsServiceProvider"
    ``` 
+
 
 
 
