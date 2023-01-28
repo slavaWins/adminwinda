@@ -25,7 +25,7 @@
             <td>Создан</td>
 
 
-            @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType("users-table-header") as $V)
+            @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType("user-table-header") as $V)
                @include($V)
             @endforeach
 
@@ -44,7 +44,7 @@
                     {{$user->created_at }}
                 </td>
 
-                @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType("users-table-body") as $V)
+                @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType("user-table-body") as $V)
                     @include($V)
                 @endforeach
             </tr>

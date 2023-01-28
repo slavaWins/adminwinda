@@ -30,6 +30,14 @@ composer require slavawins/adminwinda
 
 
 
+
+ Если вы хотите что бы адмника была не по адресу /admin то добавьте в енв это
+ ```
+   ADMIN_URL=xzrandomadminurl
+ ``` 
+
+
+
 5) Выполнить миграцию
  ```
     php artisan migrate 
