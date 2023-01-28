@@ -16,7 +16,7 @@ composer require slavawins/adminwinda
 Вызывать команду:
    ```
    php artisan vendor:publish --provider="SlavaWins\AdminWinda\Providers\AdminWindaServiceProvider"
-   php artisan vendor:publish --provider="SlavaWins\EasyAnalitics\Providers\EasyAnaliticsServiceProvider"
+   php artisan vendor:publish --provider="SlavaWins\EasyAnalitics\Provid[AuthenticateAdmin.php](src%2Fcopy%2FMiddleware%2FAuthenticateAdmin.php)ers\EasyAnaliticsServiceProvider"
    ``` 
 
 
@@ -25,10 +25,23 @@ composer require slavawins/adminwinda
 4) В роутере routes/web.php удалить:
  добавить
  ```
-    AdminWindaRoute::routes();
+    use SlavaWins\AdminWinda\Library\AdminWindaRoute;
+    Route::group(['middleware' => 'auth_admin'], function () { 
+        AdminWindaRoute::routes(); 
+    });
+    
  ``` 
 
+Что бы пользоватеься правами мидлвери, добавьте это в app\Http\Kernel.php
+ ```
+ protected $routeMiddleware = [
+        'auth_admin' => \App\Http\Middleware\AuthenticateAdmin::class,
+    
+ ``` 
 
+ <BR> Дотсуп пользвоателя к админке защищен middleware. И требует что у user был параметр is_admin=true
+ <BR> Найти это можно в middleware - auth_admin. Можно найти его в Http/Middleware/AuthenticateAdmin.
+<BR> Можно просто октлючить на крайняк
 
 
  Если вы хотите что бы адмника была не по адресу /admin то добавьте в енв это

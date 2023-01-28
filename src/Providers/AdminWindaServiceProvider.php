@@ -62,6 +62,10 @@ class AdminWindaServiceProvider extends ServiceProvider
             __DIR__ . '/../copy/Controllers' => app_path('Http/Controllers/AdminWinda'),
         ], 'public');
 
+        $this->publishes([
+            __DIR__ . '/../copy/Middleware' => app_path('Http/Middleware'),
+        ], 'public');
+
 
     }
 }
