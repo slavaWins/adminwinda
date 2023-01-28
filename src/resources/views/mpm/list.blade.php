@@ -65,9 +65,22 @@
 
         <table class="table  bg-white">
             <tr>
-                <td>ИД</td>
 
-                @foreach($modelExample->GetByTag( 'admin') as $K=>$V)
+                @if($represent->image)
+                    <td>Превью</td>
+                @endif
+
+
+                @php
+                    $arrayPropertys = [];
+
+                    $arrayPropertys['id']=(object)['label'=>"ИД"];
+                    foreach ($modelExample->GetByTag( 'admin') as $K=>$V){
+                          $arrayPropertys[$K]=$V;
+                    }
+                @endphp
+
+                @foreach($arrayPropertys as $K=>$V)
                     @php
                         $isSort = request("sort") == $K;
                         $sortArrow = request("sortArrow") ??"DESC";
@@ -114,6 +127,20 @@
                 @endphp
                 <tr>
 
+                    @if($represent->image)
+                        <td class="p-1">
+                            @if($represent->GetImagePreview($item))
+                                <div class="rounded"
+                                     style="background: url('{{$represent->GetImagePreview($item)}}') center; height: 54px;width: 54px; background-size: cover;">
+
+                                </div>
+
+                            @else
+                                <BR>
+                                ⚠️ нет
+                            @endif
+                        </td>
+                    @endif
 
                     <td>
                         <a href="{{ $link }}">
@@ -122,7 +149,7 @@
                     </td>
 
                     @foreach($item->GetByTag( 'admin') as $K=>$V)
-                        <td>{{$item->GetProperties()[$K]->value ?? ""}}  </td>
+                        <td>{{$item->GetProperties()[$K]->RenderValue() ?? ""}}  </td>
                     @endforeach
 
                     @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType($represent->modelClass."-table-body") as $V)

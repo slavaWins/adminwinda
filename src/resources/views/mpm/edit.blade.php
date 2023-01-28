@@ -45,8 +45,13 @@
         вариант Поиск записи в форме на основе значения</p>
 
 
-    <div class="row  ">
-        <div class="col-5 aw-card mb-3">
+    <div class="row  g-3  gap-3">
+
+        @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType($represent->modelClass."-show") as $V)
+            @include($V,['user'=>$item])
+        @endforeach
+
+        <div class="col-12 aw-card mb-3">
 
             <div class="row ">
                 <div class="col">
@@ -73,9 +78,7 @@
 
         </div>
 
-        @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType($represent->modelClass."-show") as $V)
-            @include($V,['user'=>$item])
-        @endforeach
+
     </div>
 @endsection
 

@@ -20,13 +20,26 @@ class MpmAdminController extends Controller
         $represent = RepresentBase::GetRepesentsClasses()[$modelClass] ?? null;
         if (!$represent) return redirect()->back();
 
+        /** @var MPModel $modelExample */
         $modelExample = new $represent->modelClass();
         //$dataList = $modelExample->modelClass::all();
         $q = $represent->modelClass::where("id", ">", 0);
 
         $s = request("s") ?? "";
         if (!empty($s)) {
-            $q = $q->where('name', 'LIKE', "%{$s}%");
+            $first = true;
+            foreach ($modelExample->GetProperties() as $K => $V) {
+                if($V->typeData<>'string' and $V->typeData<>'text')continue;
+
+                if($first){
+                    $q = $represent->modelClass::where($K, 'LIKE', "%{$s}%");
+                    $first=false;
+                }else{
+                    $q = $q->orWhere($K, 'LIKE', "%{$s}%");
+                }
+
+            }
+ 
         }
 
         $sort = request("sort") ?? "";
@@ -39,7 +52,7 @@ class MpmAdminController extends Controller
             }
         }
 
-        $inOnePage = 2;
+        $inOnePage = 22;
 
         $countPages = ceil($q->count() / $inOnePage);
         $dataList = $q->paginate($inOnePage);
@@ -58,10 +71,10 @@ class MpmAdminController extends Controller
 
         /** @var MPModel $item */
         $item = null;
-        if($id==0){
+        if ($id == 0) {
             $item = new $represent->modelClass();
 
-        }else {
+        } else {
             $item = $represent->modelClass::findOrFail($id);
         }
 
@@ -79,10 +92,10 @@ class MpmAdminController extends Controller
 
         /** @var MPModel $item */
         $item = null;
-        if($id==0){
+        if ($id == 0) {
             $item = new $represent->modelClass();
 
-        }else {
+        } else {
             $item = $represent->modelClass::findOrFail($id);
         }
 
@@ -92,8 +105,8 @@ class MpmAdminController extends Controller
         $item->PropertyFillebleByTag($request->toArray());
         $item->save();
 
-        if($id==0){
-            return redirect()->route('admin.mpm.edit', ['modelClass' => basename( get_class($represent)), 'id'=> $item->id]);
+        if ($id == 0) {
+            return redirect()->route('admin.mpm.edit', ['modelClass' => basename(get_class($represent)), 'id' => $item->id]);
         }
 
 

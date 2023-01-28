@@ -3,12 +3,9 @@
     /** @var RepresentBase $rep */
 @endphp
 
-<div class="col-md-4   sidebarFloatind px-0 py-4  ">
-
-    <span class="spanTitle" style="">Параметры</span>
+<div class="col-md-4   sidebarFloatind px-0 py-2  ">
 
 
-    <BR><BR>
 
     <span class="spanTitle">ОСНОВНОЕ  </span>
     <a href="{{route("admin")}}">Главная</a>

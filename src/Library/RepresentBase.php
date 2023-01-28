@@ -14,6 +14,14 @@ class  RepresentBase
     public $modelClass = null;
 
 
+    /** @var bool $image Выводить ли картинку в админке? Если да, то она будет выведена через  GetImagePreview */
+    public $image = false;
+
+    public function GetImagePreview($model)
+    {
+        return null;
+    }
+
     public static function GetRepesentsClasses()
     {
         $listClasses = [];
