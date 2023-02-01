@@ -47,17 +47,16 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
-    <div class="row  gap-4    p-0">
+    <div class="row       p-0">
 
         @foreach($analiticDigram as $K=>$data)
-            <div class="col-5  aw-card m-0"  >
+            <div class="col-4 p-1 "  >
+            <div class="  aw-card  "  >
                 <h3>{{$data['name']}}</h3>
                 {{$modelExample->GetProperties()[$K]->descr ?? ""}}    <BR> <BR>
                 <div>
                     <canvas id="myChart{{$K}}"></canvas>
                 </div>
-
-
 
                 <script>
                     const ctx{{$K}} = document.getElementById('myChart{{$K}}');
@@ -70,6 +69,7 @@
                 </script>
 
 
+            </div>
             </div>
         @endforeach
 

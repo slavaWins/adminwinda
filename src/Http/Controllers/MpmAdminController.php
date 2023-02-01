@@ -23,7 +23,7 @@ class MpmAdminController extends Controller
 
         $data = [];
         foreach ($list as $K => $V) {
-            if($V['count']<=0)continue;
+            if ($V['count'] <= 0) continue;
             $ar['labels'][] = $V['name'];
             $data[] = $V['count'];
 
@@ -41,7 +41,7 @@ class MpmAdminController extends Controller
         /** @var RepresentBase $represent */
         $represent = RepresentBase::GetRepesentsClasses()[$modelClass] ?? null;
         if (!$represent) return redirect()->back();
-        if (!$represent->analiticsDiagramBySelect) return redirect()->back();
+        if (!$represent->analiticsDiagramBySelect && !$represent->analiticsDiagramByValuesVariant) return redirect()->back();
 
         /** @var MPModel $modelExample */
         $modelExample = new $represent->modelClass();
@@ -49,34 +49,67 @@ class MpmAdminController extends Controller
         $props = $modelExample->GetProperties();
 
         $cln = new $represent->modelClass();
-        $q = $cln::select($represent->analiticsDiagramBySelect)->get();
 
         $analiticDigram = [];
 
-        foreach ($represent->analiticsDiagramBySelect as $K) {
-            $analiticDigram[$K] = [];
-            $analiticDigram[$K]['name'] = $props[$K]->label;
-            foreach ($props[$K]->options as $oK => $oV) {
-                $analiticDigram[$K]['options'][$oK] = [
-                    'name' => $oV,
-                    'count' => 0,
-                ];
+        if ($represent->analiticsDiagramByValuesVariant) {
+            $keys = collect($represent->analiticsDiagramByValuesVariant)->keys();
+            $q = $cln::select($keys->toArray())->get();
+            foreach ($keys as $K) {
+                $analiticDigram[$K] = [];
+                $analiticDigram[$K]['name'] = $props[$K]->label;
+                foreach ($represent->analiticsDiagramByValuesVariant[$K] as $oV) {
+                    $name = $oV;
+                    if($name===true)$name="Да";
+                    if($name===false)$name="Нет";
+                    $analiticDigram[$K]['options'][$oV] = [
+                        'name' => $name,
+                        'count' => 0,
+                    ];
+                }
             }
-        }
 
-
-        foreach ($q as $item) {
-
-
-            foreach ($represent->analiticsDiagramBySelect as $propKey) {
-                foreach ($props[$propKey]->options as $optionK => $optionName) {
-                    if ($item->$propKey == $optionK) {
-                        $analiticDigram[$propKey]['options'][$optionK]['count'] += 1;
+            foreach ($q as $item) {
+                foreach ($keys as $propKey) {
+                    foreach ($represent->analiticsDiagramByValuesVariant[$K] as $optionK) {
+                        if ($item->$propKey == $optionK) {
+                            $analiticDigram[$propKey]['options'][$optionK]['count'] += 1;
+                        }
                     }
                 }
             }
+
         }
 
+        if ($represent->analiticsDiagramBySelect) {
+            $q = $cln::select($represent->analiticsDiagramBySelect)->get();
+
+
+            foreach ($represent->analiticsDiagramBySelect as $K) {
+                $analiticDigram[$K] = [];
+                $analiticDigram[$K]['name'] = $props[$K]->label;
+                foreach ($props[$K]->options as $oK => $oV) {
+                    $analiticDigram[$K]['options'][$oK] = [
+                        'name' => $oV,
+                        'count' => 0,
+                    ];
+                }
+            }
+
+
+            foreach ($q as $item) {
+
+
+                foreach ($represent->analiticsDiagramBySelect as $propKey) {
+                    foreach ($props[$propKey]->options as $optionK => $optionName) {
+                        if ($item->$propKey == $optionK) {
+                            $analiticDigram[$propKey]['options'][$optionK]['count'] += 1;
+                        }
+                    }
+                }
+            }
+
+        }
         return view('adminwinda::mpm.analtitics', compact(['represent', 'modelExample', 'analiticDigram']));
     }
 

@@ -21,7 +21,7 @@
 
         <x-aw-sidebtn href='{{route("admin.mpm.list", $K)}}' icon="List">Спиоск</x-aw-sidebtn>
 
-        @if($rep->analiticsDiagramBySelect)
+        @if($rep->analiticsDiagramBySelect OR $rep->analiticsDiagramByValuesVariant)
             <x-aw-sidebtn href='{{route("admin.mpm.analtitics", $K)}}' icon="Analytics">Аналитика</x-aw-sidebtn>
         @endif
     @endforeach

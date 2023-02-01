@@ -13,9 +13,17 @@ class  RepresentBase
     public $title = "Пользователи";
     public $modelClass = null;
 
-    /** @var array $analiticsDiagramBySelect Перечисли массивом ['xz','myType'] поля  $config->Select() и по ним будут созданы диаграммы аналитики   */
+    /** @var array $analiticsDiagramBySelect Перечисли массивом ['xz','myType'] поля  $config->Select() и по ним будут созданы диаграммы аналитики */
     public $analiticsDiagramBySelect = 'auto';
+    public $analiticsDiagramByValuesVariant = null;
 
+
+    /*
+
+    НЕапример поле estimate может быть вот таких вариантов, это как селект только хз 
+        public $analiticsDiagramByValuesVariant = ['estimate' => [1, 2, 3, 4, 5]];
+
+     */
 
     /** @var bool $image Выводить ли картинку в админке? Если да, то она будет выведена через  GetImagePreview */
     public $image = false;
@@ -47,19 +55,19 @@ class  RepresentBase
 
     public function __construct()
     {
-        if(class_exists($this->modelClass)){
-            if($this->analiticsDiagramBySelect=='auto'){
+        if (class_exists($this->modelClass)) {
+            if ($this->analiticsDiagramBySelect == 'auto') {
 
-               $this->analiticsDiagramBySelect=[];
+                $this->analiticsDiagramBySelect = [];
                 /** @var MPModel $modelExample */
                 $modelExample = new $this->modelClass();
-                foreach ($modelExample->GetProperties() as $K=>$V){
-                    if($V->typeData=="select"){
+                foreach ($modelExample->GetProperties() as $K => $V) {
+                    if ($V->typeData == "select") {
                         $this->analiticsDiagramBySelect[] = $K;
                     }
                 }
 
-                if(empty($this->analiticsDiagramBySelect))$this->analiticsDiagramBySelect = null;
+                if (empty($this->analiticsDiagramBySelect)) $this->analiticsDiagramBySelect = null;
             }
         }
 

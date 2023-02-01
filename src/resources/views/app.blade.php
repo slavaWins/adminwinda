@@ -8,7 +8,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="/css/mat-icons/css2.css"/>
 
@@ -20,16 +19,19 @@
 
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/mrpform.js') }}" defer></script>
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-    <script src="{{ asset('js/easyapi/easyapi.js')."?".microtime()  }}"></script>
+    <script src="{{ asset('js/easyapi/easyclass.js') }}"></script>
+    <script src="{{ asset('js/easyapi/easyapi.js') }}"></script>
+    <script src="{{ asset('js/easyapi/easyform.js') }}" defer></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800&display=swap"
           rel="stylesheet">
 
 
@@ -90,7 +92,8 @@
         body {
             background: #fff;
             font-size: 14px;
-            font-family: 'Inter', sans-serif;
+            xfont-family: 'Inter', sans-serif;
+            font-family: 'Roboto', sans-serif;
             font-weight: 400;
             color: #000;
             letter-spacing: -0.015em;
@@ -130,7 +133,6 @@
             font-weight: 500;
             font-size: 14px;
             line-height: 15px;
-            letter-spacing: 0.005em;
             color: rgba(0, 0, 0, 0.69);
         }
 
@@ -183,7 +185,7 @@
             font-style: normal;
             font-weight: 400;
             color: #000;
-            font-family: 'Inter';
+            xfont-family: 'Inter';
             font-style: normal;
             font-weight: 400;
             font-size: 13px;
@@ -192,7 +194,7 @@
         h1, h2, h3, h4 {
 
 
-            font-family: 'Inter';
+            xfont-family: 'Inter';
             font-style: normal;
             font-weight: 500;
             font-size: 16px;

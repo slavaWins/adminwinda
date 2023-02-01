@@ -14,7 +14,8 @@
         "php": "^7.3|^8.0",
         "slavawins/easyanalitics": "*",
         "slavawins/formbuilder":  "*",
-        "slavawins/mrproperter": "*"
+        "slavawins/mrproperter": "*",
+        "slavawins/easyapi": "*"
     },
     "extra": {
         "laravel": {
