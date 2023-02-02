@@ -81,6 +81,44 @@ class MpmAdminController extends Controller
 
         }
 
+
+        /** Аналитика по мультиопшинам **/
+        if ($represent->analiticsDiagramByMulitioptions) {
+            $q = $cln::select($represent->analiticsDiagramByMulitioptions)->get();
+
+
+            foreach ($represent->analiticsDiagramByMulitioptions as $K) {
+                $analiticDigram[$K] = [];
+                $analiticDigram[$K]['name'] = $props[$K]->label;
+                foreach ($props[$K]->options as $oK => $oV) {
+                    $analiticDigram[$K]['options'][$oK] = [
+                        'name' => $oV,
+                        'count' => 0,
+                    ];
+                }
+            }
+
+
+            foreach ($q as $item) {
+
+
+                foreach ($represent->analiticsDiagramByMulitioptions as $propKey) {
+                    $valueItem = $item->$propKey;
+                    if(!$valueItem)continue;
+                    if(is_string($valueItem))$valueItem=json_decode($valueItem, true);
+                    if(empty($valueItem))continue;
+                    foreach ($props[$propKey]->options as $optionK => $optionName) {
+
+                        if (isset($valueItem[$optionK])) {
+                            $analiticDigram[$propKey]['options'][$optionK]['count'] += 1;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        /** Аналитика по селектам **/
         if ($represent->analiticsDiagramBySelect) {
             $q = $cln::select($represent->analiticsDiagramBySelect)->get();
 
@@ -185,7 +223,6 @@ class MpmAdminController extends Controller
     public function editSave($modelClass, $id, Request $request)
     {
 
-
         /** @var RepresentBase $represent */
         $represent = RepresentBase::GetRepesentsClasses()[$modelClass] ?? null;
         if (!$represent) return redirect()->back();
@@ -199,8 +236,10 @@ class MpmAdminController extends Controller
             $item = $represent->modelClass::findOrFail($id);
         }
 
+
         $validator = $item::GetValidatorRequest($request->toArray());
         $validator->validate();
+
 
         $item->PropertyFillebleByTag($request->toArray());
         $item->save();

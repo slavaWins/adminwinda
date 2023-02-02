@@ -14,13 +14,14 @@ class  RepresentBase
     public $modelClass = null;
 
     /** @var array $analiticsDiagramBySelect Перечисли массивом ['xz','myType'] поля  $config->Select() и по ним будут созданы диаграммы аналитики */
+    public $analiticsDiagramByMulitioptions = 'auto';
     public $analiticsDiagramBySelect = 'auto';
     public $analiticsDiagramByValuesVariant = null;
 
 
     /*
 
-    НЕапример поле estimate может быть вот таких вариантов, это как селект только хз 
+    НЕапример поле estimate может быть вот таких вариантов, это как селект только хз
         public $analiticsDiagramByValuesVariant = ['estimate' => [1, 2, 3, 4, 5]];
 
      */
@@ -68,6 +69,21 @@ class  RepresentBase
                 }
 
                 if (empty($this->analiticsDiagramBySelect)) $this->analiticsDiagramBySelect = null;
+            }
+
+
+            if ($this->analiticsDiagramByMulitioptions == 'auto') {
+
+                $this->analiticsDiagramByMulitioptions = [];
+                /** @var MPModel $modelExample */
+                $modelExample = new $this->modelClass();
+                foreach ($modelExample->GetProperties() as $K => $V) {
+                    if ($V->typeData == "multioption") {
+                        $this->analiticsDiagramByMulitioptions[] = $K;
+                    }
+                }
+
+                if (empty($this->analiticsDiagramByMulitioptions)) $this->analiticsDiagramByMulitioptions = null;
             }
         }
 
