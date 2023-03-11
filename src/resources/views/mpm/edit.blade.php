@@ -45,39 +45,39 @@
         вариант Поиск записи в форме на основе значения</p>
 
 
-    <div class="row  g-3  gap-3">
+    <div class="row  gap-3 ">
 
         @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType($represent->modelClass."-show") as $V)
             @include($V,['user'=>$item])
         @endforeach
 
-        <div class="col-12 aw-card mb-3">
 
-            <div class="row ">
+        @foreach($item->GetAllTags() as $tag)
+
+            <div class="col-4 aw-card mb-3">
+
+
                 <div class="col">
-                    <h3>{{$represent->title}}</h3>
+                    <h3> #{{$tag}}</h3>
                 </div>
 
-            </div>
-
-
-            <form method="POST"
-                  action="{{ route('admin.mpm.edit.post', ["modelClass"=>basename(get_class($represent)),'id'=> $item->id ?? 0] ) }}">
-                @csrf
-
-
                 @php
-                    $item->BuildInputAll();
+                $route_ = route('admin.mpm.edit.post', ["modelClass"=>basename(get_class($represent)),'id'=> $item->id ?? 0, 'tag'=>$tag] );
                 @endphp
 
-                <button type="submit" class="mt-4 btn btn-primary col-12 p-3 shadow-0 btn-submit-auth">
-                    Отправить
-                </button>
+                <x-easy-form  route="{{ $route_  }}"   btn="Сохранить">
 
-            </form>
 
-        </div>
 
+                    @php
+                        $item->BuildInputAll($tag);
+                    @endphp
+
+
+                </x-easy-form>
+
+            </div>
+        @endforeach
 
     </div>
 @endsection

@@ -220,7 +220,7 @@ class MpmAdminController extends Controller
         return view('adminwinda::mpm.edit', compact(['represent', 'item']));
     }
 
-    public function editSave($modelClass, $id, Request $request)
+    public function editSave($modelClass, $id, $tag, Request $request)
     {
 
         /** @var RepresentBase $represent */
@@ -237,11 +237,11 @@ class MpmAdminController extends Controller
         }
 
 
-        $validator = $item::GetValidatorRequest($request->toArray());
+        $validator = $item::GetValidatorRequest($request->toArray(), $tag);
         $validator->validate();
 
 
-        $item->PropertyFillebleByTag($request->toArray());
+        $item->PropertyFillebleByTag($request->toArray(), $tag);
         $item->save();
 
         if ($id == 0) {
