@@ -1,4 +1,12 @@
-@extends('adminwinda::app')
+@php
+$viewExt = 'adminwinda::app';
+if(view()->exists("adminwinda.app")){
+    $viewExt = 'adminwinda.app';
+}
+@endphp
+
+@extends($viewExt)
+
 
 @section("sidebar")
 
@@ -21,7 +29,7 @@
 
             @include('adminwinda::sidebar')
 
-            <div class="col-md-8 px-4 mt-4 mainContent">
+            <div class=" col px-4 mt-4 mainContent">
 
 
                 @if ($errors->all())

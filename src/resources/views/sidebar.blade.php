@@ -3,7 +3,7 @@
     /** @var RepresentBase $rep */
 @endphp
 
-<div class="col-md-4   sidebarFloatind px-0 py-2  ">
+<div class="col-md-4   sidebarFloatind sidebarFloatindAdding px-0 py-2  ">
 
 
 
