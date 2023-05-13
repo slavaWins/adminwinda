@@ -25,6 +25,7 @@ class AdminWindaRoute
         Route::get($adminBasePath.'/model/{modelClass}/list', [MpmAdminController::class, 'list'])->name('admin.mpm.list');
 
         Route::get($adminBasePath.'/model/{modelClass}/edit/{id}', [MpmAdminController::class, 'edit'])->name('admin.mpm.edit');
+        Route::get($adminBasePath.'/model/{modelClass}/delete/{id}', [MpmAdminController::class, 'delete'])->name('admin.mpm.delete');
         Route::post($adminBasePath.'/model/{modelClass}/edit/{id}/{tag}', [MpmAdminController::class, 'editSave'])->name('admin.mpm.edit.post');
 
 

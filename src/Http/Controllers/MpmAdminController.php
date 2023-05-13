@@ -60,8 +60,8 @@ class MpmAdminController extends Controller
                 $analiticDigram[$K]['name'] = $props[$K]->label;
                 foreach ($represent->analiticsDiagramByValuesVariant[$K] as $oV) {
                     $name = $oV;
-                    if($name===true)$name="Да";
-                    if($name===false)$name="Нет";
+                    if ($name === true) $name = "Да";
+                    if ($name === false) $name = "Нет";
                     $analiticDigram[$K]['options'][$oV] = [
                         'name' => $name,
                         'count' => 0,
@@ -104,9 +104,9 @@ class MpmAdminController extends Controller
 
                 foreach ($represent->analiticsDiagramByMulitioptions as $propKey) {
                     $valueItem = $item->$propKey;
-                    if(!$valueItem)continue;
-                    if(is_string($valueItem))$valueItem=json_decode($valueItem, true);
-                    if(empty($valueItem))continue;
+                    if (!$valueItem) continue;
+                    if (is_string($valueItem)) $valueItem = json_decode($valueItem, true);
+                    if (empty($valueItem)) continue;
                     foreach ($props[$propKey]->options as $optionK => $optionName) {
 
                         if (isset($valueItem[$optionK])) {
@@ -178,6 +178,9 @@ class MpmAdminController extends Controller
 
             }
 
+            if (intval($s) > 0) {
+                $q = $q->orWhere('id', intval($s));
+            }
         }
 
         $sort = request("sort") ?? "";
@@ -217,7 +220,32 @@ class MpmAdminController extends Controller
         }
 
 
+
         return view('adminwinda::mpm.edit', compact(['represent', 'item']));
+    }
+
+
+    public function delete($modelClass, $id)
+    {
+        /** @var RepresentBase $represent */
+        $represent = RepresentBase::GetRepesentsClasses()[$modelClass] ?? null;
+        if (!$represent) return redirect()->back();
+
+
+        /** @var MPModel $item */
+        $item = null;
+        if ($id == 0) {
+            return redirect()->back()->withErrors("Не найдено");
+
+        } else {
+            $item = $represent->modelClass::findOrFail($id);
+        }
+
+        if($item){
+            $item->delete();
+        }
+
+        return redirect()->back();
     }
 
     public function editSave($modelClass, $id, $tag, Request $request)
