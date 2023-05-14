@@ -1,5 +1,6 @@
 @php
     use SlavaWins\AdminWinda\Library\RepresentBase;
+    use SlavaWins\AdminWinda\Library\ParsingAdminBlade;
     /** @var RepresentBase $rep */
 @endphp
 
@@ -15,7 +16,7 @@
         <span class="spanTitle">
             <icongg class="material-symbols-outlined">{{$rep->iconGoogle??""}}</icongg>
             {{$rep->title}}
-          <a href='{{route("admin.mpm.edit",  ['modelClass' => basename( get_class($rep)), 'id'=> 0])}}'> <icongg
+          <a href='{{route("admin.mpm.edit",  ['modelClass' => ParsingAdminBlade::Basename( get_class($rep)), 'id'=> 0])}}'> <icongg
                   class="material-symbols-outlined float-end">add</icongg></a>
         </span>
 

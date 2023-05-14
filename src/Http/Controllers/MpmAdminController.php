@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use MrProperter\Models\MPModel;
+use SlavaWins\AdminWinda\Library\ParsingAdminBlade;
 use SlavaWins\AdminWinda\Library\RepresentBase;
 
 class MpmAdminController extends Controller
@@ -273,7 +274,7 @@ class MpmAdminController extends Controller
         $item->save();
 
         if ($id == 0) {
-            return redirect()->route('admin.mpm.edit', ['modelClass' => basename(get_class($represent)), 'id' => $item->id]);
+            return redirect()->route('admin.mpm.edit', ['modelClass' => ParsingAdminBlade::Basename(get_class($represent)), 'id' => $item->id]);
         }
 
 

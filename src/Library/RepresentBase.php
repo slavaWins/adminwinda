@@ -49,7 +49,7 @@ class  RepresentBase
             /** @var RepresentBase $cl */
             $cl = new $cln();
 
-            $listClasses[basename($cln)] = $cl;
+            $listClasses[ParsingAdminBlade::Basename($cln)] = $cl;
         }
         return $listClasses;
     }

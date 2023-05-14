@@ -1,6 +1,7 @@
 @php
     use SlavaWins\Formbuilder\Library\FElement;
 
+    use SlavaWins\AdminWinda\Library\ParsingAdminBlade;
    /*** @var \SlavaWins\AdminWinda\Library\RepresentBase  $represent */
    /*** @var \MrProperter\Models\MPModel  $modelExample */
    /*** @var \MrProperter\Models\MPModel  $item */
@@ -159,7 +160,7 @@
                 @foreach($dataList as $item)
 
                     @php
-                        $link = route("admin.mpm.edit", ['modelClass' => basename( get_class($represent)), 'id'=> $item->id]);
+                        $link = route("admin.mpm.edit", ['modelClass' => ParsingAdminBlade::Basename( get_class($represent)), 'id'=> $item->id]);
                     @endphp
                     <tr>
 
@@ -190,7 +191,7 @@
                         @endforeach
 
                         @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType($represent->modelClass."-table-body") as $V)
-                            @include($V,['item'=>$item, strtolower(basename($represent->modelClass))=>$item])
+                            @include($V,['item'=>$item, strtolower(ParsingAdminBlade::Basename($represent->modelClass))=>$item])
                         @endforeach
 
                         <td>

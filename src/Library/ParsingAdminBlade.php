@@ -12,6 +12,12 @@ class ParsingAdminBlade
 {
 
 
+    public static function Basename($nameFull){
+        $nameFull = str_replace("\\","/", $nameFull);
+
+        return basename($nameFull);
+    }
+
     public static function MpmListAdminRenderValue(MPModel $item, $key){
         $prop = $item->GetProperties()[$key];
 
@@ -20,7 +26,7 @@ class ParsingAdminBlade
 
         if($prop->belongsToClass){
             if(! $prop->value)return $text;
-            $href = route("admin.mpm.edit", ['modelClass' => basename( $prop->belongsToClass).'Represent', 'id'=> $prop->value]);
+            $href = route("admin.mpm.edit", ['modelClass' => ParsingAdminBlade::Basename( $prop->belongsToClass).'Represent', 'id'=> $prop->value]);
 
 
             $text = "<a href='$href'>$text</a>";
@@ -34,7 +40,7 @@ class ParsingAdminBlade
     public static function GetAdminExtendByType($bladeName)
     {
         $bladeName = strtolower($bladeName);
-        $bladeName=basename($bladeName);
+        $bladeName=ParsingAdminBlade::Basename($bladeName);
 
         $list = [];
         foreach (self::ScanAdminViewFoolder() as $K => $V) {

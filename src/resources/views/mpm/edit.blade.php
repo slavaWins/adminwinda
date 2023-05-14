@@ -1,6 +1,6 @@
 @php
     use SlavaWins\Formbuilder\Library\FElement;
-
+use SlavaWins\AdminWinda\Library\ParsingAdminBlade;
    /*** @var \SlavaWins\AdminWinda\Library\RepresentBase  $represent */
    /*** @var \MrProperter\Models\MPModel  $modelExample */
    /*** @var \MrProperter\Models\MPModel  $item */
@@ -62,11 +62,10 @@
                 </div>
 
                 @php
-                $route_ = route('admin.mpm.edit.post', ["modelClass"=>basename(get_class($represent)),'id'=> $item->id ?? 0, 'tag'=>$tag] );
+                    $route_ = route('admin.mpm.edit.post', ["modelClass"=>ParsingAdminBlade::Basename(get_class($represent)),'id'=> $item->id ?? 0, 'tag'=>$tag] );
                 @endphp
 
-                <x-easy-form  route="{{ $route_  }}"   btn="Сохранить">
-
+                <x-easy-form route="{{ $route_  }}" btn="Сохранить">
 
 
                     @php
