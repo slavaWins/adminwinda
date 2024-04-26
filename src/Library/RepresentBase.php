@@ -17,6 +17,13 @@ class  RepresentBase
     public $analiticsDiagramByMulitioptions = 'auto';
     public $analiticsDiagramBySelect = 'auto';
     public $analiticsDiagramByValuesVariant = null;
+    public $ignoreTags = [];
+    public $tagTitle = [
+        'approve'=>"Модерация",
+        'qa'=>"Раздел тестера",
+        'profile'=>"Профиль",
+        'profile_notify_if'=>"Настройки уведомлений"
+    ];
 
 
     /*

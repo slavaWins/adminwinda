@@ -45,37 +45,48 @@ use SlavaWins\AdminWinda\Library\ParsingAdminBlade;
         вариант Поиск записи в форме на основе значения</p>
 
 
-    <div class="row  gap-3 ">
+    <div class="row    ">
 
         @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType($represent->modelClass."-show") as $V)
-            @include($V,['user'=>$item])
+            <div class="col-12 col-md-6 col-xs-4 mb-3">
+
+                @include($V,['user'=>$item])
+            </div>
         @endforeach
+
 
 
         @foreach($item->GetAllTags() as $tag)
 
-            <div class="col-4 aw-card mb-3">
+            @if(!in_array( $tag, $represent->ignoreTags) && !is_int($tag))
+                <div class="col-12 col-md-6 col-xs-4 mb-3">
+                    <div class=" aw-card ">
 
 
-                <div class="col">
-                    <h3> #{{$tag}}</h3>
+                        <div class="col">
+                            <h3> {{$represent->tagTitle[$tag] ??  $tag}}
+
+                            </h3>
+                            <small> #{{$tag}}</small>
+                        </div>
+
+                        @php
+                            $route_ = route('admin.mpm.edit.post', ["modelClass"=>ParsingAdminBlade::Basename(get_class($represent)),'id'=> $item->id ?? 0, 'tag'=>$tag] );
+                        @endphp
+
+                        <x-easy-form route="{{ $route_  }}" btn="Сохранить">
+
+
+                            @php
+                                $item->BuildInputAll($tag);
+                            @endphp
+
+
+                        </x-easy-form>
+
+                    </div>
                 </div>
-
-                @php
-                    $route_ = route('admin.mpm.edit.post', ["modelClass"=>ParsingAdminBlade::Basename(get_class($represent)),'id'=> $item->id ?? 0, 'tag'=>$tag] );
-                @endphp
-
-                <x-easy-form route="{{ $route_  }}" btn="Сохранить">
-
-
-                    @php
-                        $item->BuildInputAll($tag);
-                    @endphp
-
-
-                </x-easy-form>
-
-            </div>
+            @endif
         @endforeach
 
     </div>
