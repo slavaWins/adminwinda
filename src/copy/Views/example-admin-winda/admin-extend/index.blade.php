@@ -4,8 +4,6 @@
 
     use SlavaWins\EasyAnalitics\Models\EasyAnaliticsSetting;
 
-    \SlavaWins\EasyAnalitics\Library\EasyAnaliticsHelper::Increment("example_admin_view", 1,"Просмотр админки", "Кто-то зашел на админку");
-    \SlavaWins\EasyAnalitics\Library\EasyAnaliticsHelper::Increment("example_rand", rand(1,15),"Что-то рандомное", "Записываем рандомную метрику");
 @endphp
 
 
@@ -25,14 +23,18 @@
     </div>
 
 
-    <div class="col aw-card mb-3">
+    <div class="col card mb-3">
+    <div class="  card-bdoy mb-3">
         <h2>Воронка регистраций</h2>
 
         @include("easyanalitics::voronka", ['inds'=>['auth_phone_first','auth_code_first'],'name'=>""])
     </div>
+    </div>
 
 
-    <div class="col aw-card mb-3">
+
+    <div class="col card mb-3">
+        <div class="card-body">
         <h2>График</h2>
         <div>
             <canvas id="myChart"></canvas>
@@ -62,6 +64,7 @@
                 }
             });
         </script>
+    </div>
     </div>
 
 @endsection

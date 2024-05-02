@@ -1,4 +1,5 @@
-<div class="col aw-card {{$class??""}}">
+<div class="col card {{$class??""}}">
+<div class=" aw-card card-body p-4  ">
 
     @if($icon)
         <span class="material-symbols-outlined iconRound "
@@ -10,4 +11,5 @@
     @if($val)
         <b> {{$val}}</b>
     @endif
+</div>
 </div>

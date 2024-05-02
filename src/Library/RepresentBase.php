@@ -13,6 +13,12 @@ class  RepresentBase
     public $title = "Пользователи";
     public $modelClass = null;
 
+    /** @var null|string Кастомный роут с ссылкой на создание модели. Роут */
+    public $isCanCreatedUrlCustom = null;
+
+    public $isCanCreatedAuto = false;
+
+
     /** @var array $analiticsDiagramBySelect Перечисли массивом ['xz','myType'] поля  $config->Select() и по ним будут созданы диаграммы аналитики */
     public $analiticsDiagramByMulitioptions = 'auto';
     public $analiticsDiagramBySelect = 'auto';

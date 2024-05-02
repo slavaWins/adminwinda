@@ -16,8 +16,16 @@
         <span class="spanTitle">
             <icongg class="material-symbols-outlined">{{$rep->iconGoogle??""}}</icongg>
             {{$rep->title}}
-          <a href='{{route("admin.mpm.edit",  ['modelClass' => ParsingAdminBlade::Basename( get_class($rep)), 'id'=> 0])}}'> <icongg
+
+            @if($rep->isCanCreatedAuto)
+                 <a href='{{route("admin.mpm.edit",  ['modelClass' => ParsingAdminBlade::Basename( get_class($rep)), 'id'=> 0])}}'> <icongg
                   class="material-symbols-outlined float-end">add</icongg></a>
+            @endif
+            @if($rep->isCanCreatedUrlCustom)
+                 <a href='{{route($rep->isCanCreatedUrlCustom)}}'> <icongg
+                  class="material-symbols-outlined float-end">add</icongg></a>
+            @endif
+
         </span>
 
         <x-aw-sidebtn href='{{route("admin.mpm.list", $K)}}' icon="List">Список</x-aw-sidebtn>
@@ -35,12 +43,12 @@
         </a>
     @endif
 
-    @yield("sidebar")
-
 
     @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType("sidebar") as $V)
         @include($V)
     @endforeach
+
+    @yield("sidebar")
 
 
 </div>

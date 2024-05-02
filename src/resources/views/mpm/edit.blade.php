@@ -59,8 +59,10 @@ use SlavaWins\AdminWinda\Library\ParsingAdminBlade;
         @foreach($item->GetAllTags() as $tag)
 
             @if(!in_array( $tag, $represent->ignoreTags) && !is_int($tag))
-                <div class="col-12 col-md-6 col-xs-4 mb-3">
-                    <div class=" aw-card ">
+                <div class="col-12 col-md-6 col-xs-4 mb-4  ">
+
+                        <div class="card">
+                        <div class="card-body">
 
 
                         <div class="col">
@@ -84,6 +86,7 @@ use SlavaWins\AdminWinda\Library\ParsingAdminBlade;
 
                         </x-easy-form>
 
+                    </div>
                     </div>
                 </div>
             @endif

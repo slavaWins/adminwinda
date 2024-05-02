@@ -1,17 +1,4 @@
-
-
-<div class="col-3 aw-card">
-    <h4>Какой-то блок из вашего вью</h4>
-    Текст
-
-
-</div>
-
-
-<div class="col-3 aw-card">
-    <h4>Какой-то блок из вашего вью</h4>
-
-    Ещё какой-то блок
-
-
+<div class="col card">
+    <div class="card-body">
+    </div>
 </div>

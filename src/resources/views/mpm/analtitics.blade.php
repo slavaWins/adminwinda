@@ -50,8 +50,9 @@
     <div class="row       p-0">
 
         @foreach($analiticDigram as $K=>$data)
-            <div class="col-4 p-1 "  >
-            <div class="  aw-card  "  >
+
+            <div class="col-4 card">
+                <div class="card-body">
                 <h3>{{$data['name']}}</h3>
                 {{$modelExample->GetProperties()[$K]->descr ?? ""}}    <BR> <BR>
                 <div>
