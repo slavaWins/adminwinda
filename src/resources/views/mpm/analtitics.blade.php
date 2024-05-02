@@ -51,26 +51,28 @@
 
         @foreach($analiticDigram as $K=>$data)
 
-            <div class="col-4 card">
-                <div class="card-body">
-                <h3>{{$data['name']}}</h3>
-                {{$modelExample->GetProperties()[$K]->descr ?? ""}}    <BR> <BR>
-                <div>
-                    <canvas id="myChart{{$K}}"></canvas>
+            <div class="col-4 mb-4 ">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>{{$data['name']}}</h3>
+                        {{$modelExample->GetProperties()[$K]->descr ?? ""}} <BR> <BR>
+                        <div>
+                            <canvas id="myChart{{$K}}"></canvas>
+                        </div>
+
+                        <script>
+                            const ctx{{$K}} = document.getElementById('myChart{{$K}}');
+
+                            new Chart(ctx{{$K}}, {
+                                type: 'pie',
+
+                                data: JSON.parse('{!! \SlavaWins\AdminWinda\Http\Controllers\MpmAdminController::GeneratePieData($data['options'])!!}'),
+                            });
+                        </script>
+
+
+                    </div>
                 </div>
-
-                <script>
-                    const ctx{{$K}} = document.getElementById('myChart{{$K}}');
-
-                    new Chart(ctx{{$K}}, {
-                        type: 'pie',
-
-                        data:  JSON.parse('{!! \SlavaWins\AdminWinda\Http\Controllers\MpmAdminController::GeneratePieData($data['options'])!!}'),
-                    });
-                </script>
-
-
-            </div>
             </div>
         @endforeach
 
