@@ -22,7 +22,7 @@
                   class="material-symbols-outlined float-end">add</icongg></a>
             @endif
             @if($rep->isCanCreatedUrlCustom)
-                 <a href='{{route($rep->isCanCreatedUrlCustom)}}'> <icongg
+                 <a href='{{($rep->isCanCreatedUrlCustom)}}'> <icongg
                   class="material-symbols-outlined float-end">add</icongg></a>
             @endif
 
