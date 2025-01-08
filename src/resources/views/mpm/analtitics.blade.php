@@ -35,13 +35,11 @@
             width: 20px;
         }
     </style>
-    <h1>
+    <h1 class="mb-4">
         <icongg class="material-symbols-outlined  " style="font-size: 45px;">Analytics</icongg>
-        <BR> {{$represent->title}}
+        <BR> {{$represent->title}} / <small>Аналитика данных</small>
     </h1>
-    <small>Аналитика данных</small>
-    <p>Чтобы использовать элемент управления для выполнения поиска, а не как инструмент для ввода данных, выберите
-        вариант Поиск записи в форме на основе значения</p>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

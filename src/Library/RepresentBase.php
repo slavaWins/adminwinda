@@ -16,6 +16,8 @@ class  RepresentBase
     /** @var null|string Кастомный роут с ссылкой на создание модели. Роут */
     public $isCanCreatedUrlCustom = null;
 
+    public $customUrlEdit = null;
+
     public $isCanCreatedAuto = false;
 
 

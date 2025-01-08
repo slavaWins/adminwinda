@@ -66,16 +66,17 @@
         }
     </script>
     <a onclick="ShowMenuNavLeft();" class="_showSideBtn">
-        Открыть меню
+        <svg width="31" class="svgBurger" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4.5 8H19.5" stroke-width="1.5" stroke-linecap="round"></path>
+            <path d="M4.5 12H19.5" stroke-width="1.5" stroke-linecap="round"></path>
+            <path d="M4.5 16H19.5" stroke-width="1.5" stroke-linecap="round"></path>
+        </svg>
     </a>
 
     <h1>
         {{$represent->title}}
     </h1>
-    <small>Выбрать из списка и отредактировать</small>
-    <p>Чтобы использовать элемент управления для выполнения поиска, а не как инструмент для ввода данных, выберите
-        вариант Поиск записи в форме на основе значения</p>
-
+ 
 
     <div class="row">
 
@@ -161,6 +162,9 @@
 
                     @php
                         $link = route("admin.mpm.edit", ['modelClass' => ParsingAdminBlade::Basename( get_class($represent)), 'id'=> $item->id]);
+                        if($represent->customUrlEdit){
+                            $link = str_replace("{id}", $item->id, $represent->customUrlEdit);
+                        }
                     @endphp
                     <tr>
 

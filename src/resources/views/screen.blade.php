@@ -22,14 +22,14 @@ if(view()->exists("adminwinda.app")){
         @endforeach
     </div>
 
-    <div class="container-fluid px-3">
+    <div class="  px-2">
 
-        <div class="row justify-content-left  ">
+        <div class="row justify-content-left  " style="width: 100%;">
 
 
             @include('adminwinda::sidebar')
 
-            <div class=" col px-4 mt-4 mainContent">
+            <div class=" col   px-4 mt-4 mainContent">
 
 
                 @if ($errors->all())
