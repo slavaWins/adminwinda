@@ -53,11 +53,13 @@
                 <div class="card">
                     <div class="card-body">
                         <h3>{{$data['name']}}</h3>
-                        {{$modelExample->GetProperties()[$K]->descr ?? ""}} <BR> <BR>
+
                         <div>
                             <canvas id="myChart{{$K}}"></canvas>
                         </div>
-
+                        <div class="mt-4" style="font-size: 0.7em; min-height: 80px;">
+                            {{$modelExample->GetProperties()[$K]->descr ?? ""}}
+                        </div>
                         <script>
                             const ctx{{$K}} = document.getElementById('myChart{{$K}}');
 
