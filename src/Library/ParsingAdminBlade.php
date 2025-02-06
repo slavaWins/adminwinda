@@ -56,6 +56,7 @@ class ParsingAdminBlade
         $list = [];
         $path = resource_path("views");
         foreach (scandir($path) as $K => $V) if ($K > 1) {
+            if(!is_dir( $path . '/' . $V ))continue;
             $thepath = $path . '/' . $V . '/admin-extend';
             if (!file_exists($thepath)) continue;
             $vpath = $V . '.admin-extend';
