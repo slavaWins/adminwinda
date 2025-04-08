@@ -63,14 +63,15 @@ class  RepresentBase
 
             /** @var RepresentBase $cl */
             $cl = new $cln();
-
             $listClasses[ParsingAdminBlade::Basename($cln)] = $cl;
         }
+
         return $listClasses;
     }
 
     public function __construct()
     {
+
         if (class_exists($this->modelClass)) {
             if ($this->analiticsDiagramBySelect == 'auto') {
 

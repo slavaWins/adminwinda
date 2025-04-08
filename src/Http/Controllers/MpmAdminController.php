@@ -53,6 +53,7 @@ class MpmAdminController extends Controller
 
         $analiticDigram = [];
 
+
         if ($represent->analiticsDiagramByValuesVariant) {
             $keys = collect($represent->analiticsDiagramByValuesVariant)->keys();
             $q = $cln::select($keys->toArray())->get();
@@ -73,6 +74,7 @@ class MpmAdminController extends Controller
             foreach ($q as $item) {
                 foreach ($keys as $propKey) {
                     foreach ($represent->analiticsDiagramByValuesVariant[$K] as $optionK) {
+
                         if ($item->$propKey == $optionK) {
                             $analiticDigram[$propKey]['options'][$optionK]['count'] += 1;
                         }
@@ -80,11 +82,12 @@ class MpmAdminController extends Controller
                 }
             }
 
-        }
-
-
+        } 
+        if($represent->analiticsDiagramByMulitioptions==="auto")$represent->analiticsDiagramByMulitioptions=null;
+        if($represent->analiticsDiagramBySelect==="auto")$represent->analiticsDiagramBySelect=null;
         /** Аналитика по мультиопшинам **/
-        if ($represent->analiticsDiagramByMulitioptions) {
+        if ($represent->analiticsDiagramByMulitioptions  ) {
+
             $q = $cln::select($represent->analiticsDiagramByMulitioptions)->get();
 
 
@@ -108,7 +111,7 @@ class MpmAdminController extends Controller
                     if (!$valueItem) continue;
                     if (is_string($valueItem)) $valueItem = json_decode($valueItem, true);
                     if (empty($valueItem)) continue;
-                    foreach ($props[$propKey]->options as $optionK => $optionName) {
+                    foreach ($props[$propKey]->GetOptions() as $optionK => $optionName) {
 
                         if (isset($valueItem[$optionK])) {
                             $analiticDigram[$propKey]['options'][$optionK]['count'] += 1;
@@ -121,13 +124,15 @@ class MpmAdminController extends Controller
 
         /** Аналитика по селектам **/
         if ($represent->analiticsDiagramBySelect) {
+
+
             $q = $cln::select($represent->analiticsDiagramBySelect)->get();
 
 
             foreach ($represent->analiticsDiagramBySelect as $K) {
                 $analiticDigram[$K] = [];
                 $analiticDigram[$K]['name'] = $props[$K]->label;
-                foreach ($props[$K]->options as $oK => $oV) {
+                foreach ($props[$K]->GetOptions() as $oK => $oV) {
                     $analiticDigram[$K]['options'][$oK] = [
                         'name' => $oV,
                         'count' => 0,
@@ -138,9 +143,10 @@ class MpmAdminController extends Controller
 
             foreach ($q as $item) {
 
-
                 foreach ($represent->analiticsDiagramBySelect as $propKey) {
-                    foreach ($props[$propKey]->options as $optionK => $optionName) {
+
+                    foreach ($props[$propKey]->GetOptions() as $optionK => $optionName) {
+
                         if ($item->$propKey == $optionK) {
                             $analiticDigram[$propKey]['options'][$optionK]['count'] += 1;
                         }
