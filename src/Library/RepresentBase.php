@@ -63,6 +63,8 @@ class  RepresentBase
 
             /** @var RepresentBase $cl */
             $cl = new $cln();
+            if(!$cl->IsEnabled())continue;
+            
             $listClasses[ParsingAdminBlade::Basename($cln)] = $cl;
         }
 
@@ -105,4 +107,8 @@ class  RepresentBase
 
     }
 
+    public function IsEnabled():bool
+    {
+        return true;
+    }
 }
