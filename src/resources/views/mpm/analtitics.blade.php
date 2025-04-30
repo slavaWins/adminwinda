@@ -66,7 +66,7 @@
                             new Chart(ctx{{$K}}, {
                                 type: 'pie',
 
-                                data: JSON.parse('{!! \SlavaWins\AdminWinda\Http\Controllers\MpmAdminController::GeneratePieData($data['options'])!!}'),
+                                data: JSON.parse('{!! \SlavaWins\AdminWinda\Http\Controllers\MpmAdminAnaliticsController::GeneratePieData($data['options'])!!}'),
                             });
                         </script>
 

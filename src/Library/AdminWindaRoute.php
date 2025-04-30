@@ -5,6 +5,7 @@ namespace SlavaWins\AdminWinda\Library;
 
 
 use Illuminate\Support\Facades\Route;
+use SlavaWins\AdminWinda\Http\Controllers\MpmAdminAnaliticsController;
 use SlavaWins\AdminWinda\Http\Controllers\UserAdminController;
 use SlavaWins\AdminWinda\Http\Controllers\IndexAdminController;
 use SlavaWins\AdminWinda\Http\Controllers\MpmAdminController;
@@ -29,7 +30,7 @@ class AdminWindaRoute
         Route::post($adminBasePath.'/model/{modelClass}/edit/{id}/{tag}', [MpmAdminController::class, 'editSave'])->name('admin.mpm.edit.post');
 
 
-        Route::get($adminBasePath.'/model/{modelClass}/analtitics', [MpmAdminController::class, 'analtitics'])->name('admin.mpm.analtitics');
+        Route::get($adminBasePath.'/model/{modelClass}/analtitics', [MpmAdminAnaliticsController::class, 'analtitics'])->name('admin.mpm.analtitics');
     }
 
 }

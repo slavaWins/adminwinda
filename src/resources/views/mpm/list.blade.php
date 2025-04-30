@@ -76,7 +76,7 @@
     <h1>
         {{$represent->title}}
     </h1>
- 
+
 
     <div class="row">
 
@@ -161,7 +161,11 @@
                 @foreach($dataList as $item)
 
                     @php
-                        $link = route("admin.mpm.edit", ['modelClass' => ParsingAdminBlade::Basename( get_class($represent)), 'id'=> $item->id]);
+
+                    $_idKey = $item->getRouteKeyName();
+
+                        $link = route("admin.mpm.edit", ['modelClass' => ParsingAdminBlade::Basename( get_class($represent)), 'id'=> $item->$_idKey ]);
+
                         if($represent->customUrlEdit){
                             $link = str_replace("{id}", $item->id, $represent->customUrlEdit);
                         }

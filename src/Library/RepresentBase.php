@@ -20,6 +20,8 @@ class  RepresentBase
 
     public $isCanCreatedAuto = false;
 
+    public $inOnePage = 32;
+
 
     /** @var array $analiticsDiagramBySelect Перечисли массивом ['xz','myType'] поля  $config->Select() и по ним будут созданы диаграммы аналитики */
     public $analiticsDiagramByMulitioptions = 'auto';
@@ -64,7 +66,7 @@ class  RepresentBase
             /** @var RepresentBase $cl */
             $cl = new $cln();
             if(!$cl->IsEnabled())continue;
-            
+
             $listClasses[ParsingAdminBlade::Basename($cln)] = $cl;
         }
 
@@ -82,6 +84,9 @@ class  RepresentBase
                 $modelExample = new $this->modelClass();
                 foreach ($modelExample->GetProperties() as $K => $V) {
                     if ($V->typeData == "select") {
+                        $this->analiticsDiagramBySelect[] = $K;
+                    }
+                    if ($V->typeData == "checkbox") {
                         $this->analiticsDiagramBySelect[] = $K;
                     }
                 }
