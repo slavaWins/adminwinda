@@ -31,6 +31,10 @@ class AdminWindaRoute
 
 
         Route::get($adminBasePath.'/model/{modelClass}/analtitics', [MpmAdminAnaliticsController::class, 'analtitics'])->name('admin.mpm.analtitics');
+
+
+        //Route::get($adminBasePath.'/model/{modelClass}/delete/{id}', [MpmAdminController::class, 'delete'])->name('admin.mpm.delete');
+        Route::get($adminBasePath.'/model/{modelClass}/copy/{id}', [MpmAdminController::class, 'copy'])->name('admin.mpm.copy');
     }
 
 }

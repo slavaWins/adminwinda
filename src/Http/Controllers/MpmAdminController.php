@@ -93,6 +93,7 @@ class MpmAdminController extends Controller
         $represent = RepresentBase::GetRepesentsClasses()[$modelClass] ?? null;
         if (!$represent) return redirect()->back();
 
+        if(!$represent->isCanDelete)return redirect()->back();
 
         /** @var MPModel $item */
         $item = null;
@@ -105,6 +106,34 @@ class MpmAdminController extends Controller
 
         if($item){
             $item->delete();
+        }
+
+        return redirect()->back();
+    }
+
+    public function copy($modelClass, $id)
+    {
+        /** @var RepresentBase $represent */
+        $represent = RepresentBase::GetRepesentsClasses()[$modelClass] ?? null;
+        if (!$represent) return redirect()->back();
+
+        if(!$represent->isCanCopy)return redirect()->back();
+
+
+        /** @var MPModel $item */
+        $item = null;
+        if ($id == 0) {
+            return redirect()->back()->withErrors("Не найдено");
+
+        } else {
+            $item = $represent->modelClass::findOrFail($id);
+        }
+
+
+        if($item){
+
+            $itemNew = $item->replicate();
+            $itemNew->save();
         }
 
         return redirect()->back();

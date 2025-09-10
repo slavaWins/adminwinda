@@ -44,8 +44,15 @@ use SlavaWins\AdminWinda\Library\ParsingAdminBlade;
 
     <div class="row    ">
 
+
+        @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType($represent->modelClass."-show-12") as $V)
+            @include($V,['user'=>$item])
+        @endforeach
+
+
+
         @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType($represent->modelClass."-show") as $V)
-            <div class="col-12 col-md-6 col-xs-4 mb-3">
+            <div class="col-12 col-md-6 col-xs-4 mb-3 adminContainer_custom">
 
                 @include($V,['user'=>$item])
             </div>
@@ -56,34 +63,34 @@ use SlavaWins\AdminWinda\Library\ParsingAdminBlade;
         @foreach($item->GetAllTags() as $tag)
 
             @if(!in_array( $tag, $represent->ignoreTags) && !is_int($tag))
-                <div class="col-12 col-md-6 col-xs-4 mb-4  ">
+                <div class="col-12 col-md-6 col-xs-4 mb-4 adminContainer_gen  ">
 
-                        <div class="card">
+                    <div class="card">
                         <div class="card-body">
 
 
-                        <div class="col">
-                            <h3> {{$represent->tagTitle[$tag] ??  $tag}}
+                            <div class="col">
+                                <h3> {{$represent->tagTitle[$tag] ??  $tag}}
 
-                            </h3>
-                            <small> #{{$tag}}</small>
-                        </div>
-
-                        @php
-                            $route_ = route('admin.mpm.edit.post', ["modelClass"=>ParsingAdminBlade::Basename(get_class($represent)),'id'=> $item->id ?? 0, 'tag'=>$tag] );
-                        @endphp
-
-                        <x-easy-form route="{{ $route_  }}" btn="Сохранить">
-
+                                </h3>
+                                <small> #{{$tag}}</small>
+                            </div>
 
                             @php
-                                $item->BuildInputAll($tag);
+                                $route_ = route('admin.mpm.edit.post', ["modelClass"=>ParsingAdminBlade::Basename(get_class($represent)),'id'=> $item->id ?? 0, 'tag'=>$tag] );
                             @endphp
 
+                            <x-easy-form route="{{ $route_  }}" btn="Сохранить">
 
-                        </x-easy-form>
 
-                    </div>
+                                @php
+                                    $item->BuildInputAll($tag);
+                                @endphp
+
+
+                            </x-easy-form>
+
+                        </div>
                     </div>
                 </div>
             @endif

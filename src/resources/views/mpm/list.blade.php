@@ -56,6 +56,10 @@
             font-weight: 400;
             color: #888888;
         }
+        .td_functions a{
+            margin-right: 10px;
+
+        }
     </style>
 
     <script>
@@ -165,6 +169,10 @@
                     $_idKey = $item->getRouteKeyName();
 
                         $link = route("admin.mpm.edit", ['modelClass' => ParsingAdminBlade::Basename( get_class($represent)), 'id'=> $item->$_idKey ]);
+                        $linkCopy = route("admin.mpm.copy", ['modelClass' => ParsingAdminBlade::Basename( get_class($represent)), 'id'=> $item->$_idKey ]);
+                        $linkDelete= route("admin.mpm.delete", ['modelClass' => ParsingAdminBlade::Basename( get_class($represent)), 'id'=> $item->$_idKey ]);
+
+
 
                         if($represent->customUrlEdit){
                             $link = str_replace("{id}", $item->id, $represent->customUrlEdit);
@@ -202,10 +210,25 @@
                             @include($V,['item'=>$item, strtolower(ParsingAdminBlade::Basename($represent->modelClass))=>$item])
                         @endforeach
 
-                        <td>
+                        <td class="td_functions">
                             <a href="{{ $link }}">
                                 Редактировать
                             </a>
+
+
+                            @if($represent->isCanCopy)
+                            <a href="{{ $linkCopy }}"  approvedModal="Вы действительно хотите копировать этот&nbsp;элемент?">
+                                Копировать
+                            </a>
+                            @endif
+
+                            @if($represent->isCanDelete)
+                            <a href="{{ $linkDelete }}"  approvedModal="Вы действительно хотите удалить этот&nbsp;элемент?">
+                                Удалить
+                            </a>
+                            @endif
+
+
                         </td>
 
                     </tr>

@@ -36,6 +36,9 @@ class  RepresentBase
     ];
 
 
+
+    public bool $isCanCopy = false;
+    public bool $isCanDelete = false;
     /*
 
     НЕапример поле estimate может быть вот таких вариантов, это как селект только хз
