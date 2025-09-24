@@ -12,7 +12,15 @@ if(view()->exists("adminwinda.app")){
 
 @endsection
 
+
+
+@yield('top')
+
+
 @section('app-col')
+
+
+
 
     <div class="col-12   adminHeader" style="border-bottom: 1px solid #e1dfdf; padding-top: 20px;padding-bottom: 20px;">
 

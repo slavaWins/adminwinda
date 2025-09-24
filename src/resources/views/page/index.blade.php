@@ -9,6 +9,14 @@
 
 
 
+@section('top')
+
+    @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType("index-top") as $V)
+        @include($V)
+    @endforeach
+
+@endsection
+
 
 @section('content')
 
