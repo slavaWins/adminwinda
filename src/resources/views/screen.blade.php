@@ -18,8 +18,8 @@
 
         @include('adminwinda::sidebar')
 
-        <div class=" col   px-4 mt-4 mainContent">
 
+        <div class="col  mainContent">
 
             @include('adminwinda::error-alert')
 

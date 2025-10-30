@@ -9,17 +9,21 @@
 
 @if($info)
 
-    <div class="col-12 col-md-4 m-0 mb-4">
+    <div class="col-12 col-md-4 analyticBlock  ">
 
-        <div class=" aw-card card-body p-4  ">
+        <div class="  ">
 
-            <span style="font-size: 3em">{{number_format($info->data->last()->amount)}}</span>
+            <span class="_val">{{number_format($info->data->last()->amount)}}</span>
 
-            <BR> {{$info->setting->name}}
+            <BR>
+            <span class="_name">{{$info->setting->name}} </span>
+
+            <BR>
+            <span class="_descr">{{$info->setting->descr}} </span>
+
             <br>
 
-            <span style="font-size: 0.4em;">За {{$info->data->last()->date_day}}</span>
-
+            <span class="_date">За {{$info->data->last()->date_day}}</span>
 
 
         </div>

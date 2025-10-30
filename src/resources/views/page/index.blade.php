@@ -7,6 +7,23 @@
 
 @extends('adminwinda::screen')
 
+<style>
+    .analyticBlock{
+
+        ._descr{
+            display:none;
+        }
+        ._val{
+            font-size: 40px;
+        }
+        ._name{
+            font-size: 14px;
+        }
+        ._date{
+            font-size: 12px;
+        }
+    }
+</style>
 
 
 @section('top')
