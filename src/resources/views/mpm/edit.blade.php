@@ -42,7 +42,7 @@ use SlavaWins\AdminWinda\Library\ParsingAdminBlade;
     </h1>
 
 
-    <div class="row    ">
+    <div class="row ">
 
 
         @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType($represent->modelClass."-show-12") as $V)
@@ -53,7 +53,6 @@ use SlavaWins\AdminWinda\Library\ParsingAdminBlade;
 
         @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType($represent->modelClass."-show") as $V)
             <div class="col-12 col-md-6 col-xs-4 mb-3 adminContainer_custom">
-
                 @include($V,['user'=>$item])
             </div>
         @endforeach

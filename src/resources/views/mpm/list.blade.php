@@ -1,7 +1,6 @@
 @php
-    use SlavaWins\Formbuilder\Library\FElement;
-
     use SlavaWins\AdminWinda\Library\ParsingAdminBlade;
+
    /*** @var \SlavaWins\AdminWinda\Library\RepresentBase  $represent */
    /*** @var \MrProperter\Models\MPModel  $modelExample */
    /*** @var \MrProperter\Models\MPModel  $item */
@@ -36,210 +35,152 @@
             width: 20px;
         }
 
-        ._showSideBtn {
-            cursor: pointer;
-        }
 
-        .sidebarFloatind {
-            transition: 0.2s;
-        }
-
-        .sidebarFloatindAdding {
-            display: none;
-            width: 74px;
-            overflow: scroll;
-
-        }
-
-        .mrpListAdminTrFirst a {
-            font-size: 12px;
-            font-weight: 400;
-            color: #888888;
-        }
-        .td_functions a{
-            margin-right: 10px;
-
-        }
     </style>
 
-    <script>
-        function ShowMenuNavLeft() {
-            $("._showSideBtn").hide();
-            $(".sidebarFloatind").show();
-            $(".sidebarFloatind").removeClass('sidebarFloatindAdding');
-        }
-    </script>
-    <a onclick="ShowMenuNavLeft();" class="_showSideBtn">
-        <svg width="31" class="svgBurger" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4.5 8H19.5" stroke-width="1.5" stroke-linecap="round"></path>
-            <path d="M4.5 12H19.5" stroke-width="1.5" stroke-linecap="round"></path>
-            <path d="M4.5 16H19.5" stroke-width="1.5" stroke-linecap="round"></path>
-        </svg>
-    </a>
-
-    <h1>
-        {{$represent->title}}
-    </h1>
 
 
-    <div class="row">
+    @include("adminwinda::mpm.list-header")
 
-        <div class="col">
-            <form method="GET">
-                <div class="input-group mb-3  border border-2 rounded">
-                        <span class="input-group-text border-0"><icongg
-                                class="material-symbols-outlined">search</icongg></span>
-                    <input type="text" name="s" class="form-control border-0" placeholder="Что ищем..."
-                           value="{{request("s")??""}}" style="background: transparent;">
-                    <button type="submit" class="input-group-text border-0" type="button" id="button-addon2">Найти
-                    </button>
-                </div>
-            </form>
-        </div>
-        <div class="col">
-
-        </div>
-    </div>
+    <div class="  table-responsive mrpAdminDivOuterTable">
 
 
-    <div class="col">
-        <div class="col aw-card mb-3 table-responsive mrpAdminDivOuterTable">
+        <table class="table  bg-white ">
+            <tr class="mrpListAdminTrFirst">
+
+                @if($represent->image)
+                    <td>Превью</td>
+                @endif
 
 
-            <table class="table  bg-white ">
-                <tr class="mrpListAdminTrFirst">
+                @php
+                    $arrayPropertys = [];
 
-                    @if($represent->image)
-                        <td>Превью</td>
-                    @endif
+                    $arrayPropertys['id']=(object)['label'=>"ИД"];
+                    foreach ($modelExample->GetByTag( 'admin') as $K=>$V){
+                          $arrayPropertys[$K]=$V;
+                    }
+                @endphp
 
-
+                @foreach($arrayPropertys as $K=>$V)
                     @php
-                        $arrayPropertys = [];
-
-                        $arrayPropertys['id']=(object)['label'=>"ИД"];
-                        foreach ($modelExample->GetByTag( 'admin') as $K=>$V){
-                              $arrayPropertys[$K]=$V;
+                        $isSort = request("sort") == $K;
+                        $sortArrow = request("sortArrow") ??"DESC";
+                        if($sortArrow=="DESC"){
+                            $sortArrow="ASC";
+                        }else{
+                            $sortArrow="DESC";
                         }
+
+                        $href = [  'sort'=>$K, 'sortArrow'=>$sortArrow, 's'=>request('s')];
+                        $href=http_build_query($href);
+
                     @endphp
-
-                    @foreach($arrayPropertys as $K=>$V)
-                        @php
-                            $isSort = request("sort") == $K;
-                            $sortArrow = request("sortArrow") ??"DESC";
-                            if($sortArrow=="DESC"){
-                                $sortArrow="ASC";
-                            }else{
-                                $sortArrow="DESC";
-                            }
-
-                            $href = [  'sort'=>$K, 'sortArrow'=>$sortArrow, 's'=>request('s')];
-                            $href=http_build_query($href);
-
-                        @endphp
-                        <td><a href="?{{$href}}">
-                                @if($isSort)
-                                    @if($sortArrow=="DESC")
-                                        ⬆️
-                                    @else
-                                        ⬇️
-                                    @endif
+                    <td><a href="?{{$href}}">
+                            @if($isSort)
+                                @if($sortArrow=="DESC")
+                                    ⬆️
+                                @else
+                                    ⬇️
                                 @endif
+                            @endif
 
-                                {{$V->label ?? ""}}
+                            {{$V->label ?? ""}}
 
-                            </a>
-                        </td>
-                    @endforeach
-
-
-                    @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType($represent->modelClass."-table-header") as $V)
-                        @include($V)
-                    @endforeach
-
-                    <td>
-                        Управление
+                        </a>
                     </td>
-                </tr>
+                @endforeach
 
-                @foreach($dataList as $item)
 
-                    @php
+                @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType($represent->modelClass."-table-header") as $V)
+                    @include($V)
+                @endforeach
+
+                <td>
+                    Управление
+                </td>
+            </tr>
+
+            @foreach($dataList as $item)
+
+                @php
 
                     $_idKey = $item->getRouteKeyName();
 
-                        $link = route("admin.mpm.edit", ['modelClass' => ParsingAdminBlade::Basename( get_class($represent)), 'id'=> $item->$_idKey ]);
-                        $linkCopy = route("admin.mpm.copy", ['modelClass' => ParsingAdminBlade::Basename( get_class($represent)), 'id'=> $item->$_idKey ]);
-                        $linkDelete= route("admin.mpm.delete", ['modelClass' => ParsingAdminBlade::Basename( get_class($represent)), 'id'=> $item->$_idKey ]);
+                    $link = route("admin.mpm.edit", ['modelClass' => ParsingAdminBlade::Basename( get_class($represent)), 'id'=> $item->$_idKey ]);
+                    $linkCopy = route("admin.mpm.copy", ['modelClass' => ParsingAdminBlade::Basename( get_class($represent)), 'id'=> $item->$_idKey ]);
+                    $linkDelete= route("admin.mpm.delete", ['modelClass' => ParsingAdminBlade::Basename( get_class($represent)), 'id'=> $item->$_idKey ]);
 
 
 
-                        if($represent->customUrlEdit){
-                            $link = str_replace("{id}", $item->id, $represent->customUrlEdit);
-                        }
-                    @endphp
-                    <tr>
+                    if($represent->customUrlEdit){
+                        $link = str_replace("{id}", $item->id, $represent->customUrlEdit);
+                    }
+                @endphp
+                <tr>
 
-                        @if($represent->image)
-                            <td class="p-1">
-                                @if($represent->GetImagePreview($item))
-                                    <div class="rounded"
-                                         style="background: url('{{$represent->GetImagePreview($item)}}') center; height: 54px;width: 54px; background-size: cover;">
+                    @if($represent->image)
+                        <td class="p-1">
+                            @if($represent->GetImagePreview($item))
+                                <div class="rounded"
+                                     style="background: url('{{$represent->GetImagePreview($item)}}') center; height: 54px;width: 54px; background-size: cover;">
 
-                                    </div>
+                                </div>
 
-                                @else
-                                    <BR>
-                                    ⚠️ нет
-                                @endif
-                            </td>
-                        @endif
-
-                        <td>
-                            <a href="{{ $link }}">
-                                {{$item->id}}
-                            </a>
+                            @else
+                                <BR>
+                                ⚠️ нет
+                            @endif
                         </td>
+                    @endif
 
-                        @foreach($item->GetByTag( 'admin') as $K=>$V)
+                    <td>
+                        <a href="{{ $link }}">
+                            {{$item->id}}
+                        </a>
+                    </td>
 
-                            <td>{!!  \SlavaWins\AdminWinda\Library\ParsingAdminBlade::MpmListAdminRenderValue($item, $K)  !!}  </td>
-                        @endforeach
+                    @foreach($item->GetByTag( 'admin') as $K=>$V)
 
-                        @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType($represent->modelClass."-table-body") as $V)
-                            @include($V,['item'=>$item, strtolower(ParsingAdminBlade::Basename($represent->modelClass))=>$item])
-                        @endforeach
+                        <td>{!!  \SlavaWins\AdminWinda\Library\ParsingAdminBlade::MpmListAdminRenderValue($item, $K)  !!}  </td>
+                    @endforeach
 
-                        <td class="td_functions">
-                            <a href="{{ $link }}">
-                                Редактировать
-                            </a>
+                    @foreach(\SlavaWins\AdminWinda\Library\ParsingAdminBlade::GetAdminExtendByType($represent->modelClass."-table-body") as $V)
+                        @include($V,['item'=>$item, strtolower(ParsingAdminBlade::Basename($represent->modelClass))=>$item])
+                    @endforeach
+
+                    <td class="td_functions">
+                        <a href="{{ $link }}">
+                            Редактировать
+                        </a>
 
 
-                            @if($represent->isCanCopy)
-                            <a href="{{ $linkCopy }}"  approvedModal="Вы действительно хотите копировать этот&nbsp;элемент?">
+                        @if($represent->isCanCopy)
+                            <a href="{{ $linkCopy }}"
+                               approvedModal="Вы действительно хотите копировать этот&nbsp;элемент?">
                                 Копировать
                             </a>
-                            @endif
+                        @endif
 
-                            @if($represent->isCanDelete)
-                            <a href="{{ $linkDelete }}"  approvedModal="Вы действительно хотите удалить этот&nbsp;элемент?">
+                        @if($represent->isCanDelete)
+                            <a href="{{ $linkDelete }}"
+                               approvedModal="Вы действительно хотите удалить этот&nbsp;элемент?">
                                 Удалить
                             </a>
-                            @endif
+                        @endif
 
 
-                        </td>
+                    </td>
 
-                    </tr>
+                </tr>
 
-                @endforeach
-            </table>
+            @endforeach
+        </table>
 
-            <div class="col-12 colNav">
-                {{$dataList->appends(['s' => request("s")??"", 'sort' => request("sort")??"", 'sortArrow' => request("sortArrow")??""])->links()}}
-            </div>
+        <div class="col-12 colNav">
+            {{$dataList->appends(['s' => request("s")??"", 'sort' => request("sort")??"", 'sortArrow' => request("sortArrow")??""])->links()}}
         </div>
+
     </div>
 @endsection
 
