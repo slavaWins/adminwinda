@@ -156,14 +156,14 @@
 
 
                         @if($represent->isCanCopy)
-                            <a href="{{ $linkCopy }}"
+                            <a href="{{ $linkCopy }}" approvedModal-method="POST"
                                approvedModal="Вы действительно хотите копировать этот&nbsp;элемент?">
                                 Копировать
                             </a>
                         @endif
 
                         @if($represent->isCanDelete)
-                            <a href="{{ $linkDelete }}"
+                            <a href="{{ $linkDelete }}" approvedModal-method="POST"
                                approvedModal="Вы действительно хотите удалить этот&nbsp;элемент?">
                                 Удалить
                             </a>

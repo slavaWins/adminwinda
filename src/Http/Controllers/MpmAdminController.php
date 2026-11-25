@@ -26,6 +26,7 @@ class MpmAdminController extends Controller
         $q = $represent->modelClass::where("id", ">", 0);
 
         $s = request("s") ?? "";
+        if (!is_string($s)) $s = "";
         if (!empty($s)) {
             $first = true;
             foreach ($modelExample->GetProperties() as $K => $V) {
@@ -46,6 +47,9 @@ class MpmAdminController extends Controller
         }
 
         $sort = request("sort") ?? "";
+        // Сортировать можно только по описанным полям модели (не по password/remember_token и т.п.)
+        $sortAllowed = array_merge(['id', 'created_at', 'updated_at'], array_keys($modelExample->GetProperties()));
+        if (!is_string($sort) || !in_array($sort, $sortAllowed, true)) $sort = "";
         if (!empty($sort)) {
             $sortArrow = request("sortArrow") ?? "descr";
             if (request("sortArrow") == "DESC") {
@@ -156,11 +160,16 @@ class MpmAdminController extends Controller
         }
 
 
-        $validator = $item::GetValidatorRequest($request->toArray(), $tag);
+        if (in_array($tag, $represent->ignoreTags, true) || !in_array($tag, $item->GetAllTags(), true)) {
+            return redirect()->back()->withErrors(['Этот набор полей нельзя редактировать']);
+        }
+
+        $data = $request->all();
+        $validator = $item->GetValidatorRequestInModel($data, $tag);
         $validator->validate();
 
-
-        $item->PropertyFillebleByTag($request->toArray(), $tag);
+        // В модель пишем только провалидированные и очищенные данные, NonEditable пропускаются
+        $item->PropertyFillebleByTag($item->GetFillDataFromValidator($validator, $data, $tag), $tag);
         $item->save();
 
         if ($id == 0) {

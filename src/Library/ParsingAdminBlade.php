@@ -22,14 +22,18 @@ class ParsingAdminBlade
         $prop = $item->GetProperties()[$key];
 
         $text = $item->GetProperties()[$key]->RenderValue() ?? "";
+        if (is_array($text)) $text = json_encode($text, JSON_UNESCAPED_UNICODE);
 
+        // Результат выводится через {!! !!}, поэтому всё экранируем здесь:
+        // данные могут прийти не через Purifier (OAuth/OpenID, API, сидеры, импорт).
+        $text = e((string)$text);
 
         if($prop->belongsToClass){
             if(! $prop->value)return $text;
-            $href = route("admin.mpm.edit", ['modelClass' => ParsingAdminBlade::Basename( $prop->belongsToClass).'Represent', 'id'=> $prop->value]);
+            $href = e(route("admin.mpm.edit", ['modelClass' => ParsingAdminBlade::Basename( $prop->belongsToClass).'Represent', 'id'=> $prop->value]));
 
 
-            $text = "<a href='$href'>$text</a>";
+            $text = "<a href=\"$href\">$text</a>";
         }
 
         return $text;

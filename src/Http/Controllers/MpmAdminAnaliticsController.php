@@ -28,7 +28,8 @@ class MpmAdminAnaliticsController extends Controller
             'label' => '#  шт',
             'data' => $data
         ];
-        return json_encode($ar);
+        // HEX-флаги: результат вставляется прямо в <script>, кавычки и </script> в подписях не должны его ломать
+        return json_encode($ar, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE);
     }
 
     public function analtitics($modelClass)
